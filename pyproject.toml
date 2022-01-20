@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "secuserve-sensors-module"
+version = "0.1.0"
+description = "A Module for communicatiing with zwave devices"
+authors = ["NicholasBlackburn1 <nickblackburn02@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+python-openzwave = "^0.4.19"
+colorama = "^0.4.4"
+zmq = "^0.0.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

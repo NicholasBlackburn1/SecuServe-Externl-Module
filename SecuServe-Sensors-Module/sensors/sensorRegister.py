@@ -24,29 +24,28 @@ class sensorRegister(object):
         self.mainDevice.lock()
 
         self.network = ZWaveNetwork(self.mainDevice)
+       
 
-        consoleLog.PipeLine_Ok("setup Zwave options successfully...")
+        consoleLog.PipeLWine_Ok("setup Zwave options successfully...")
 
     
 
     # when node updates
     def node_update(network, node):
-         consoleLog.Warning('Node update : {}.'.format(node))
+         consoleLog.PipeLine_Data('Node update : {}.'.format(node))
 
     # when valuse update
     def value_update(network, node, value):
-        consoleLog.Warning('Value update : {}.'.format(value))
+        consoleLog.PipeLine_Data('Value update : {}.'.format(value))
 
     # when Control Network updates
     def ctrl_message(state, message, network, controller):
-       consoleLog.info('Controller message : {}.'.format(message))
+       consoleLog.PipeLine_Data('Controller message : {}.'.format(message))
 
     # starts the zwave netowrk 
     def startNetwork(self):
         self.network.start()
         
-        
-
 
     # Connect to events
     def value_updated(network, node, value):
@@ -54,11 +53,12 @@ class sensorRegister(object):
         consoleLog.PipeLine_Data("%s: Value updated node_id: <%d>, label <%s> new value <%s> instance %d" % ( now, node.node_id, value.label, str(value.data), value.instance))
 
 
+
     #allowwws me to run stuff for the sensors
     def pullData(self):
         consoleLog.info("Startiting network data from zwave")
-       
+    
         while self.network.state != self.network.STATE_READY:
             sleep(1)
-            
-        
+    
+

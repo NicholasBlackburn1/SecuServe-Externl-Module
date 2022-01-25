@@ -21,9 +21,16 @@ class SensorBase(object):
     _SensorDateCode: str
 
     # * this is the base useage of the class
-    def __init__(self, name: str, type: str, address: str, definition: str, supported: str, source: str, enpoints: str, datecode: str) -> list:
+    def __init__(self, name: str, type: str, address: str, definition: str, supported: str, source: str, endpoints: str, datecode: str) -> list:
 
         self.setSensorname(name)
+        self.setSensorType(type)
+        self.setSensorAddress(address)
+        self.setSensorDefinition(definition)
+        self.setSensorSupported(supported)
+        self.setSensorPowerSource(source)
+        self.setSensorEndpoints(endpoints)
+        self.setSensorDateCoede(datecode)
 
     # sets the sensor name for the nice sensor object
     def setSensorname(self, name: str) -> str:
@@ -124,7 +131,7 @@ class SensorBase(object):
 
         else:
             self._SensorDateCode = date
-    
+
     def getSensorName(self):
         return self._SensorName
 

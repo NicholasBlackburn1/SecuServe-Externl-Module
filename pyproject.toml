@@ -9,6 +9,7 @@ python = "^3.8"
 python-openzwave = "^0.4.19"
 colorama = "^0.4.4"
 zmq = "^0.0.0"
+zigbee2mqtt = "^0.0.1"
 
 [tool.poetry.dev-dependencies]
 

@@ -10,6 +10,12 @@ python-openzwave = "^0.4.19"
 colorama = "^0.4.4"
 zmq = "^0.0.0"
 zigbee2mqtt = "^0.0.1"
+paho-mqtt = "^1.6.1"
+zigpy = "^0.43.0"
+zigate = "^0.40.12"
+digi-xbee = "^1.4.1"
+srp = "^1.0.18"
+pyserial = "^3.5"
 
 [tool.poetry.dev-dependencies]
 

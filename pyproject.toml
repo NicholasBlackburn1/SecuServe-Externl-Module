@@ -16,6 +16,7 @@ zigate = "^0.40.12"
 digi-xbee = "^1.4.1"
 srp = "^1.0.18"
 pyserial = "^3.5"
+zigpy-znp = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 

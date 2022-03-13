@@ -1,10 +1,13 @@
-import asyncio
-import utils.consoleLog as log
+"""
+TODO: get this module to send stuff down the zmq pipeline to commuicate with db module 
+"""
 
-#TODO: get de
-# There are many different radio libraries but they all have the same API
-from zigpy_znp.zigbee.application import ControllerApplication
+
+import utils.consoleLog as log
+import asyncio
 from zigpy import types as t
+
+
 
 class MainListener:
     """
@@ -39,9 +42,7 @@ class MainListener:
         # gets the information of the device 
         log.PipeLine_Data("device ieee" + str(device.ieee))
         log.PipeLine_Data("device network"+ str(device.nwk))
-        log.PipeLine_Data("device ieee number" + str(self._ieee_to_number(device.ieee)))
-
-        
+        log.PipeLine_Data(str({'ieee':str(device.ieee), 'network':str(device.nwk),'ieenum':str(self._ieee_to_number(device.ieee))}))
         
    
 
@@ -52,35 +53,3 @@ class MainListener:
 
 
     
-
-# man methond 
-async def main():
-    log.info("starting stuff initing...")
-    app = ControllerApplication(ControllerApplication.SCHEMA({
-        "database_path": "../SecuServeFiles/device",
-        "device": {
-            "path": "/dev/ttyUSB0",
-        }
-    }))
-
-    listener = MainListener(app)
-    app.add_listener(listener)
-    MainListener.app = app
-  
-   
-
-    
-    
-  
-    await app.startup(auto_form=True)
-
-    # Permit joins for a minute
-    await app.permit(60)
-    await asyncio.sleep(60)
-
-    # Just run forever
-    await asyncio.get_running_loop().create_future()
-
-
-if __name__ == "__main__":
-    asyncio.run(main())

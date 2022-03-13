@@ -10,9 +10,10 @@ import zmq
 # There are many different radio libraries but they all have the same API
 
 from zigpy_znp.zigbee.application import ControllerApplication
-from utils import consoleLog
+from utils import consoleLog as log
 from utils import const
 
+from pipeline import MainListener
 
 
 context = zmq.Context(io_threads=4)
@@ -22,37 +23,42 @@ sender = context.socket(zmq.PUB)
 # the main menthod that runs 
 # 
 # 
-def main():
-    consoleLog.PipeLine_init("Initing Zmq..... ")
-    # enables stuff to be sent on zmq
-    sender.bind(const.zmq_send)
 
-    consoleLog.info("Starting Zigbee module.....")
-    
-    
-    consoleLog.PipeLine_Ok("connected to zigbee usb ~")
-    device.open(force_settings=True)
-    
-    consoleLog.info("operating mode of zigbee is "+device._get_operating_mode())
-    # Get the network.
-    xnet = device.get_network()
-
-    xnet.start_discovery_process(deep=True, n_deep_scans=1)
-    while xnet.is_discovery_running():
-        time.sleep(0.5)
-
-    # Get the list of the nodes in the network.
-    nodes = xnet.get_devices()
+#TODO: get de
+# There are many different radio libraries but they all have the same API
+from zigpy_znp.zigbee.application import ControllerApplication
 
 
-    consoleLog.info("devices found "+str(nodes))
+# man methond 
+async def main():
+    log.info("starting stuff initing...")
+    app = ControllerApplication(ControllerApplication.SCHEMA({
+        "database_path": "../SecuServeFiles/device",
+        "device": {
+            "path": "/dev/ttyUSB0",
+        }
+    }))
 
-        
-    consoleLog.Warning("got data from zigbee devices"+device.read_data())
-
+    listener = MainListener.MainListener(app)
+    app.add_listener(listener)
+    MainListener.MainListener.app = app
+  
+   
 
     
+    
+  
+    await app.startup(auto_form=True)
+
+    # Permit joins for a minute
+    await app.permit(60)
+    await asyncio.sleep(60)
+
+    # Just run forever
+    await asyncio.get_running_loop().create_future()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
+    
+

@@ -37,3 +37,19 @@ def sendSensorInfoOnJoin(self, sender, ieee, ieeenum, network, currenttime):
     )
     time.sleep(0.5)
     consoleLog.PipeLine_Ok("Sent Sensor info to zmq socket")
+
+
+# captured sensor data senst over the etwrok
+def sendSensorCapturedData(self, sender, ieee, network, sensordata, currenttime):
+    consoleLog.Debug("sending Sensor info to zmq socket")
+    sender.send_string("SENSOR")
+    sender.send_json(
+        {
+            "ieee": str(ieee),
+            "network": str(network),
+            "sensor_data": str(sensordata),
+            "time": str(currenttime),
+        }
+    )
+    time.sleep(0.5)
+    consoleLog.PipeLine_Ok("Sent Sensor info to zmq socket")

@@ -5,7 +5,11 @@ TODO: get this module to send stuff down the zmq pipeline to commuicate with db 
 
 import utils.consoleLog as log
 import asyncio
+from utils import socketcomm
+
 from zigpy import types as t
+
+from datetime import datetime
 
 
 
@@ -46,7 +50,10 @@ class MainListener:
         log.PipeLine_Data("device network"+ str(device.nwk))
         log.PipeLine_Data(str({'ieee':str(device.ieee), 'network':str(device.nwk),'ieenum':str(self._ieee_to_number(device.ieee))}))
 
-        
+        # sends the info over the socket
+        socketcomm.sendSensorInfoOnJoin(socketcomm,self.socket, device.ieee, self._ieee_to_number(device.ieee),device.nwk, datetime.now)
+
+
         
         
    

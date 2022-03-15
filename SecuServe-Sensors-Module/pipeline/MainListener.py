@@ -15,7 +15,9 @@ class MainListener:
     Look for `listener_event` in the Zigpy source or just look at the logged warnings.
     """
 
+    socket = None
 
+    # device & app
     dev = None
     app = None
 
@@ -43,6 +45,9 @@ class MainListener:
         log.PipeLine_Data("device ieee" + str(device.ieee))
         log.PipeLine_Data("device network"+ str(device.nwk))
         log.PipeLine_Data(str({'ieee':str(device.ieee), 'network':str(device.nwk),'ieenum':str(self._ieee_to_number(device.ieee))}))
+
+        
+        
         
    
 

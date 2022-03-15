@@ -17,14 +17,16 @@ from pipeline import MainListener
 
 
 context = zmq.Context(io_threads=4)
-sender = context.socket(zmq.PUB)
 
+sender = context.socket(zmq.PUSH)
+recv = context.socket(zmq.PULL)
+
+# zmq setup
 sender.bind("tcp://"+"127.0.0.1:5001")
+recv.connect("tcp://"+"127.0.0.1:5002")
 
 
 # the main menthod that runs 
-# 
-# 
 
 #TODO: set up devices that join to be saved to database via the databse module 
 # There are many different radio libraries but they all have the same API

@@ -4,6 +4,7 @@ TODO: NEED TO GET MY ZWAVE SUFF
 """
 
 import asyncio
+from datetime import datetime
 import time
 import zmq
 
@@ -12,7 +13,7 @@ import zmq
 from zigpy_znp.zigbee.application import ControllerApplication
 from utils import consoleLog as log
 from utils import const
-
+from utils import socketcomm
 from pipeline import MainListener
 
 
@@ -22,8 +23,8 @@ sender = context.socket(zmq.PUSH)
 recv = context.socket(zmq.PULL)
 
 # zmq setup
-sender.bind("tcp://"+"127.0.0.1:5001")
-recv.connect("tcp://"+"127.0.0.1:5002")
+sender.bind("tcp://"+"127.0.0.1:5002")
+recv.connect("tcp://"+"127.0.0.1:5001")
 
 
 # the main menthod that runs 
@@ -36,6 +37,8 @@ from zigpy_znp.zigbee.application import ControllerApplication
 # man methond 
 async def main():
     log.info("starting stuff initing...")
+    socketcomm.sendProgramStatus(socketcomm,sender,"Starting Sensors module...",str(datetime.now))
+    
     app = ControllerApplication(ControllerApplication.SCHEMA({
         "database_path": "../SecuServeFiles/device",
         "device": {
